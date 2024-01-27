@@ -5,6 +5,18 @@ import csv
 import math
 
 
+def index_range(page: int, page_size: int) -> Tuple[int, int]:
+    """
+    The function should return a tuple of size two
+    containing a start index and an end index
+    corresponding to the range of indexes
+    return in a list for those particular pagination parameters.
+    """
+    end = page * page_size
+    start = end - page_size
+    return start, end
+
+
 class Server:
     """Server class to paginate a database of popular baby names."""
 
@@ -22,18 +34,6 @@ class Server:
             self.__dataset = dataset[1:]
 
         return self.__dataset
-
-    @staticmethod
-    def index_range(page: int, page_size: int) -> Tuple[int, int]:
-        """
-        The function should return a tuple of size two
-        containing a start index and an end index
-        corresponding to the range of indexes
-        return in a list for those particular pagination parameters.
-        """
-        end = page * page_size
-        start = end - page_size
-        return start, end
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """

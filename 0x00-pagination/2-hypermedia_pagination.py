@@ -5,6 +5,18 @@ import csv
 import math
 
 
+def index_range(page: int, page_size: int) -> Tuple[int, int]:
+    """
+    The function should return a tuple of size two
+    containing a start index and an end index
+    corresponding to the range of indexes
+    return in a list for those particular pagination parameters.
+    """
+    end = page * page_size
+    start = end - page_size
+    return start, end
+
+
 class Server:
     """Server class to paginate a database of popular baby names."""
 
@@ -23,18 +35,6 @@ class Server:
 
         return self.__dataset
 
-    @staticmethod
-    def index_range(page: int, page_size: int) -> Tuple[int, int]:
-        """
-        The function should return a tuple of size two
-        containing a start index and an end index
-        corresponding to the range of indexes
-        return in a list for those particular pagination parameters.
-        """
-        end = page * page_size
-        start = end - page_size
-        return start, end
-
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """
         return the appropriate page of the dataset
@@ -52,10 +52,10 @@ class Server:
         start, end = index_range(page, page_size)
         total_pages = math.ceil(len(self.__dataset) / page_size)
         return {
-            'page_size': len(data),
-            'page': page,
-            'data': data,
-            'next_page': page + 1 if end < len(self.__dataset) else None,
-            'prev_page': page - 1 if start > 0 else None,
-            'total_pages': total_pages
+            "page_size": len(data),
+            "page": page,
+            "data": data,
+            "next_page": page + 1 if end < len(self.__dataset) else None,
+            "prev_page": page - 1 if start > 0 else None,
+            "total_pages": total_pages,
         }
