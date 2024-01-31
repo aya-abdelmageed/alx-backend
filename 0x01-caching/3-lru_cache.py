@@ -10,6 +10,9 @@ class LRUCache(BaseCaching):
     from BaseCaching and is a caching system
     """
     def __init__(self):
+        """
+        initialize the cache
+        """
         super.__init__()
         self.cache_data = OrderedDict()
 
