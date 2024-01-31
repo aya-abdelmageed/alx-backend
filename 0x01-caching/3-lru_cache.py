@@ -9,11 +9,12 @@ class LRUCache(BaseCaching):
     class LRUCache that inherits
     from BaseCaching and is a caching system
     """
+
     def __init__(self):
         """
         initialize the cache
         """
-        super.__init__()
+        super().__init__()
         self.cache_data = OrderedDict()
 
     def put(self, key, item):
@@ -23,12 +24,10 @@ class LRUCache(BaseCaching):
         """
         if key is None or item is None:
             return
-
         if key not in self.cache_data:
             if len(self.cache_data) + 1 > BaseCaching.MAX_ITEMS:
-                lru, _ = self.cache_data.popitem(True)
-                print("DISCARD:", lru)
-
+                lru_key, _ = self.cache_data.popitem(True)
+                print("DISCARD:", lru_key)
             self.cache_data[key] = item
             self.cache_data.move_to_end(key, last=False)
         else:
