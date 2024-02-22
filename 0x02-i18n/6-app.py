@@ -1,22 +1,31 @@
 #!/usr/bin/env python3
-"""task 6"""
-from flask import Flask, render_template, request, g
+"""
+A Basic flask application
+"""
+from typing import (
+    Dict, Union
+)
+
+from flask import Flask
+from flask import g, request
+from flask import render_template
 from flask_babel import Babel
-from typing import Dict, Union
 
 
-class Config:
-    """a Flask Babel configuration."""
-    LANGUAGES = ["en", "fr"]
-    BABEL_DEFAULT_LOCALE = "en"
-    BABEL_DEFAULT_TIMEZONE = "UTC"
-    DEBUG = True
+class Config(object):
+    """
+    Application configuration class
+    """
+    LANGUAGES = ['en', 'fr']
+    BABEL_DEFAULT_LOCALE = 'en'
+    BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 
+# Instantiate the application object
 app = Flask(__name__)
 app.config.from_object(Config)
-app.url_map.strict_slashes = False
 
+# Wrap the application with Babel
 babel = Babel(app)
 
 
@@ -63,11 +72,13 @@ def before_request() -> None:
     setattr(g, 'user', get_user(request.args.get('login_as', 0)))
 
 
-@app.route('/')
-def index():
-    """default route"""
-    return render_template("6-index.html",)
+@app.route('/', strict_slashes=False)
+def index() -> str:
+    """
+    Renders a basic html template
+    """
+    return render_template('6-index.html')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run()
