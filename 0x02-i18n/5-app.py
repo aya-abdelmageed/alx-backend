@@ -13,7 +13,6 @@ class Config:
     DEBUG = True
 
 
-
 app = Flask(__name__)
 app.config.from_object(Config)
 app.url_map.strict_slashes = False
@@ -27,6 +26,7 @@ users = {
     3: {"name": "Spock", "locale": "kg", "timezone": "Vulcan"},
     4: {"name": "Teletubby", "locale": None, "timezone": "Europe/London"},
 }
+
 
 def get_user() -> Union[Dict, None]:
     """Retrieves a user based on a user id.
@@ -43,7 +43,6 @@ def before_request() -> None:
     """
 
     g.user = get_user()
-
 
 
 @babel.localeselector
